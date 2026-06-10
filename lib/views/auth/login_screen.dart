@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:task/core/utils/app_sizes.dart';
+import 'package:task/core/utils/app_validators.dart';
 
 import '../../controllers/login_controller.dart';
 import '../../core/utils/app_colors.dart';
@@ -36,47 +37,23 @@ class LoginScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              const Text(
-                                'Username',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.textPrimary,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
                               AppTextField(
+                                label: 'Username',
                                 controller: controller.usernameCtrl,
                                 focusNode: controller.usernameFocus,
                                 nextFocusNode: controller.passwordFocus,
 
-                                validator: (v) =>
-                                    (v == null || v.trim().isEmpty)
-                                    ? 'Username is required'
-                                    : null,
+                                validator: AppValidators.username,
                               ),
                               const SizedBox(height: 18),
 
-                              const Text(
-                                'Password',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.textPrimary,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
                               AppTextField(
+                                label: 'Password',
                                 controller: controller.passwordCtrl,
                                 focusNode: controller.passwordFocus,
                                 obscureText: true,
 
-                                validator: (v) =>
-                                    (v == null ||
-                                        v.isEmpty ||
-                                        v.trim().length < 6)
-                                    ? 'Password must be atleas 6 character'
-                                    : null,
+                                validator: AppValidators.strongPassword,
                               ),
                               const SizedBox(height: 22),
 
